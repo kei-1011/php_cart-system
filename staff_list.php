@@ -52,6 +52,7 @@ whileでループを回して表示させる
           </p>
         <?php }
         ?>
+        <a href="./index.php" class="btn btn-link">Home</a>
         <input type="submit" value="参照" class="btn btn-light" name="disp">
         <input type="submit" value="追加" class="btn btn-info" name="add">
         <input type="submit" value="修正" class="btn btn-primary" name="edit">
