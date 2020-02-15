@@ -23,10 +23,7 @@
 
     /*データベースに接続する
     */
-    $dsn = 'mysql:dbname=shop;host=localhost';
-    $user = 'root';
-    $password = 'root';
-    $dbh = new PDO($dsn, $user, $password);
+    require('db.php');
     $dbh->query('SET NAMES utf8');
 
     $sql = 'INSERT INTO mst_staff(name,password) VALUES (?,?)';
