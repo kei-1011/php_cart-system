@@ -54,8 +54,8 @@
     print '<input type="hidden" name="pass" value="' . $staff_pass . '">';
     print '<input type="hidden" name="code" value="' . $staff_code . '">';
     print '<br>';
-    print '<input type="button" onclick="history.back()" value="戻る">';
-    print '<input type="submit" value="OK">';
+    print '<input type="button" class="btn btn-secondary" onclick="history.back()" value="戻る">';
+    print '<input type="submit" class="btn btn-primary" value="OK">';
     print '</form>';
   }
 

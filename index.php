@@ -12,8 +12,8 @@
 <body>
 
   <ul>
-    <li><a href="./index.php¥">Home</a></li>
-    <li><a href="./staff_add.php">スタッフ追加</a></li>
+    <li><a href="./index.php">Home</a></li>
+    <li><a href="./staff_list.php">スタッフ追加</a></li>
   </ul>
 
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

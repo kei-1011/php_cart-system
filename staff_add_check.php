@@ -48,7 +48,7 @@ input hiddenでデータを引き渡す
 
   if ($staff_name == '' || $staff_pass == '' || $staff_pass != $staff_pass2) {
     print '<form>';
-    print '<input type="button" onclick-"history.back()" value="戻る">';
+    print '<input type="button" class="btn btn-secondary" onclick-"history.back()" value="戻る">';
     print '</form>';
   } else {
 
@@ -57,8 +57,8 @@ input hiddenでデータを引き渡す
     print '<input type="hidden" name="name" value="' . $staff_name . '">';
     print '<input type="hidden" name="pass" value="' . $staff_pass . '">';
     print '<br>';
-    print '<input type="button" onclick="history.back()" value="戻る">';
-    print '<input type="submit" value="OK">';
+    print '<input type="button" class="btn btn-secondary" onclick="history.back()" value="戻る">';
+    print '<input type="submit" class="btn btn-primary" value="OK">';
     print '</form>';
   }
 

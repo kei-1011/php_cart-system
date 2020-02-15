@@ -5,49 +5,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>スタッフ追加</title>
+  <title>スタッフ情報参照</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 </head>
 
 <body>
+  <div class="container">
 
-  <?php
-  /*tryは<?phpのすぐ下に書
-*/
-  try {
+    <?php
 
-    $staff_name = $_POST['name'];
-    $staff_pass = $_POST['pass'];
+    $staff_code = $_GET['staffcode'];
 
-    $staff_name = htmlspecialchars($staff_name);
-    $staff_pass = htmlspecialchars($staff_pass);
-
-    /*データベースに接続する
-    */
     require('db.php');
     $dbh->query('SET NAMES utf8');
 
-    $sql = 'INSERT INTO mst_staff(name,password) VALUES (?,?)';
+    $sql = 'SELECT name FROM mst_staff WHERE code=?';
+    //スタッフコードで絞り込み
+
     $stmt = $dbh->prepare($sql);
-    $data[] = $staff_name;
-    $data[] = $staff_pass;
+    $data[] = $staff_code;
     $stmt->execute($data);
+
+    $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+    $staff_name = $rec['name'];
 
     $dbh = null;
 
-    print $staff_name;
-    print 'さんを追加しました<br>';
-    print '  <a href="staff_list.php" class="btn btn-secondary">戻る</a>';
-  } catch (Exception $e) {
+    ?>
 
-    print 'ただいま障害により大変ご迷惑をおかけしております。';
-    exit();
-  }
+    <h1>スタッフ情報修正</h1>
 
-  ?>
+    <p>スタッフコード</p>
+    <p><?php print $staff_code; ?></p>
+    <p>スタッフ名</p>
+    <p><?php print $staff_name; ?></p>
+    <input type="button" value="戻る" onclick="history.back()" class="btn btn-secondary">
+  </div>
 
-  <a href="staff_list.php"></a>
 
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
