@@ -5,33 +5,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>スタッフ追加</title>
+  <title>スタッフ削除完了画面</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <body>
-  <div class="container">
 
-    <h1>スタッフ追加</h1>
-    <form method="post" action="staff_add_check.php">
-      <div class="form-group">
+  <?php
+  /*
+  tryは<?phpのすぐ下に書
+*/
+  $staff_code = $_POST['code'];
 
-        <p>スタッフ名を入力して下さい</p>
-        <input type="text" name="name" style="width:200px;" class="form-control">
+  /*データベースに接続する
+    */
+  require('db.php');
+  $dbh->query('SET NAMES utf8');
 
-        <p>パスワードを入力して下さい</p>
-        <input type="password" name="pass" style="width:100px;" class="form-control">
+  $sql = 'DELETE FROM mst_staff WHERE code=?';
+  /*
+  DELETE削除
+  mst_staffのテーブルのスタッフコードが?のレコードを削除する
+  */
+  $stmt = $dbh->prepare($sql);
+  $data[] = $staff_code;
+  $stmt->execute($data);
 
-        <p>パスワードをもう一度入力して下さい</p>
-        <input type="password" name="pass2" style="width:100px;" class="form-control">
-        <br>
-        <input type="button" value="戻る" onclick="history.back()" class="btn btn-secondary">
-        <input type="submit" value="OK" class="btn btn-primary">
-      </div>
-    </form>
+  $dbh = null;
 
-  </div>
+
+  ?>
+
+  <p>削除が完了しました</p>
+  <a href="staff_list.php">戻る</a>
+
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
   </script>

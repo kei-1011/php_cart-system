@@ -5,33 +5,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>スタッフ追加</title>
+  <title>スタッフ情報の修正</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <style>
+  .staff-code span,
+  .staff-name span {
+    margin-left: 30px;
+  }
+  </style>
 </head>
 
 <body>
   <div class="container">
 
-    <h1>スタッフ追加</h1>
-    <form method="post" action="staff_add_check.php">
+    <?php
+    /*
+*/
+
+    $staff_code = $_GET['staffcode'];
+
+    require('db.php');
+    $dbh->query('SET NAMES utf8');
+
+    $sql = 'SELECT name FROM mst_staff WHERE code=?';
+    //スタッフコードで絞り込み
+
+    $stmt = $dbh->prepare($sql);
+    $data[] = $staff_code;
+    $stmt->execute($data);
+
+    $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+    $staff_name = $rec['name'];
+
+    $dbh = null;
+
+    ?>
+
+    <h1>スタッフ情報修正</h1>
+
+    <p class="staff-code">スタッフコード<span><?php print $staff_code; ?></span></p>
+    <p class="staff-name">スタッフ名<span><?php print $staff_name; ?></span></p>
+
+    <div class="delete-check">
+      <p>このスタッフを削除してもよろしいですか？</p>
+    </div>
+
+    <form action="staff_delete_done.php" method="post">
       <div class="form-group">
-
-        <p>スタッフ名を入力して下さい</p>
-        <input type="text" name="name" style="width:200px;" class="form-control">
-
-        <p>パスワードを入力して下さい</p>
-        <input type="password" name="pass" style="width:100px;" class="form-control">
-
-        <p>パスワードをもう一度入力して下さい</p>
-        <input type="password" name="pass2" style="width:100px;" class="form-control">
-        <br>
+        <input type="hidden" name="code" value="<?php print $staff_code; ?>">
         <input type="button" value="戻る" onclick="history.back()" class="btn btn-secondary">
         <input type="submit" value="OK" class="btn btn-primary">
       </div>
     </form>
-
   </div>
+
+
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
   </script>

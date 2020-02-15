@@ -18,6 +18,8 @@
     /*
 スタッフ一覧画面を作る
 
+dbからスタッフ情報を取得、
+whileでループを回して表示させる
 */
 
     require('db.php');
@@ -33,22 +35,27 @@
 
     print '<h1>スタッフ一覧</h1>'; ?>
 
-    <form action="staff_edit.php" method="post">
-      <?php
-      while (true) {
-        $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($rec == false) {
-          break;
-        } ?>
+    <form action="staff_branch.php" method="post">
+      <div class="form-group">
 
-      <p>
-          <input type="radio" name="staffcode" value="'.$rec['code'].'">
-          <?php print $rec['code']; ?>
-          <?php print $rec['name']; ?>
-        </p>
-      <?php }
-      ?>
-      <input type="submit" value="修正" class="btn btn-primary">
+        <?php
+        while (true) {
+          $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+          if ($rec == false) {
+            break;
+          } ?>
+
+        <p>
+            <input type="radio" name="staffcode" class="form-check-input" value="<?php print $rec['code']; ?>">
+            <?php print $rec['code']; ?>
+            <?php print $rec['name']; ?>
+          </p>
+        <?php }
+        ?>
+        <input type="submit" value="追加" class="btn btn-info" name="add">
+        <input type="submit" value="修正" class="btn btn-primary" name="edit">
+        <input type="submit" value="削除" class="btn btn-danger" name="delete">
+      </div>
     </form>
   </div>
 
